@@ -13,17 +13,17 @@ export interface Product {
 }
 
 export const useProductStore = defineStore('products', () => {
-    let products = reactive<Product[]>([]);
+    const products = ref<Product[]>([]);
     const categoryFilter = ref('all');
     const dateFilter = ref('all');
 
-    const filteredProducts = computed(() => products.filter(p => {
+    const filteredProducts = computed(() => products.value.filter(p => {
         return (categoryFilter.value === 'all' || p.category === categoryFilter.value) &&
             (dateFilter.value === 'all' || p.date === dateFilter.value);
     }));
 
     async function loadProducts() {
-        products = [{
+        products.value = [{
             id: 1,
             name: 'Sing Airways',
             description: 'Flight to Barcelona with a layover in Paris',
@@ -80,10 +80,10 @@ export const useProductStore = defineStore('products', () => {
         }]
     }
 
-    const categoryOptions = computed(() => getFilterOptions(products, 'category'));
-    const dateOptions = computed(() => getFilterOptions(products, 'date'));
+    const categoryOptions = computed(() => getFilterOptions(products.value, 'category'));
+    const dateOptions = computed(() => getFilterOptions(products.value, 'date'));
 
-    const getProduct = (id: number) => products.find(p => p.id === id);
+    const getProduct = (id: number) => products.value.find(p => p.id === id);
 
     return {
         products,

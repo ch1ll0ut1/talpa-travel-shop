@@ -1,30 +1,35 @@
 <script setup lang="ts">
 import { useProductStore, type Product } from '@/stores/products';
+import { useBasketStore } from '@/stores/basket';
+import ProductBasket from './ProductBasket.vue';
 
 const { productId } = defineProps<{ productId: Product['id'] }>()
 
-const store = useProductStore();
+const products = useProductStore();
+const basket = useBasketStore();
 
-store.loadProducts();
+products.loadProducts();
 
-const product = store.getProduct(productId);
+const product = products.getProduct(productId);
 
 </script>
 
 <template>
-    <div class="product" v-if="product">
-        <img :src="product.image" :alt="product.name" class="item-picture" />
-        <div class="wrapper">
-            <h3>{{ product.name }}</h3>
-            <p>{{ product.description }}</p>
-            <p>Date: {{ product.date }}</p>
-            <p>Location: {{ product.location }}</p>
-            <p>price: {{ product.price }} EUR</p>
-            <div>
-                <!-- <button @click="store.addToCart(product)">Add to Cart</button>
-                <button @click="store.removeFromCart(product)">Remove from Cart</button> -->
+    <div class="layout" v-if="product">
+        <div class="product">
+            <img :src="product.image" :alt="product.name" class="item-picture" />
+            <div class="wrapper">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <p>Date: {{ product.date }}</p>
+                <p>Location: {{ product.location }}</p>
+                <p>Price: {{ product.price }} EUR</p>
+                <div>
+                    <button @click="basket.addItem(productId)">Add to Cart</button>
+                </div>
             </div>
         </div>
+        <ProductBasket />
     </div>
     <div v-else>
         <p>Product not found</p>
@@ -32,6 +37,12 @@ const product = store.getProduct(productId);
 </template>
 
 <style scoped>
+.layout {
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+}
+
 .product {
     display: flex;
     flex-direction: column;

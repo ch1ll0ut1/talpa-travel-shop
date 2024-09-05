@@ -1,0 +1,38 @@
+<script setup lang="ts">
+import ProductItem from './ProductItem.vue';
+import { useBasketStore } from '@/stores/basket';
+
+const basket = useBasketStore();
+</script>
+
+<template>
+    <div class="basket">
+        <h2>Your Basket</h2>
+        <ul>
+            <li v-for="item in basket.items" :key="item.id">
+                <ProductItem :productId="item.productId">
+                    <template #actions>
+                        <button @click="basket.removeItem(item.id)">Remove</button>
+                    </template>
+                </ProductItem>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<style scoped>
+.basket {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+</style>
