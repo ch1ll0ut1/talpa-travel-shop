@@ -83,6 +83,8 @@ export const useProductStore = defineStore('products', () => {
     const categoryOptions = computed(() => getFilterOptions(products, 'category'));
     const dateOptions = computed(() => getFilterOptions(products, 'date'));
 
+    const getProduct = (id: number) => products.find(p => p.id === id);
+
     return {
         products,
         filteredProducts,
@@ -91,6 +93,7 @@ export const useProductStore = defineStore('products', () => {
         loadProducts,
         categoryOptions,
         dateOptions,
+        getProduct,
     };
 });
 
