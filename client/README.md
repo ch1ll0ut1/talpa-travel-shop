@@ -1,6 +1,9 @@
 # talpa-travel-shop
 
-This template should help get you started developing with Vue 3 in Vite.
+## Notes to certain decisions made here during development
+
+- Not using code splitting on purpose because its a tiny app at this point
+- 
 
 ## Recommended IDE Setup
 
