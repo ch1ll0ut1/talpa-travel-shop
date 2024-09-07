@@ -7,13 +7,16 @@
     "scripts": {
         "build": "tsc",
         "start": "node --loader ts-node/esm src/index.ts",
-        "orm": "typeorm-ts-node-esm"
+        "orm": "typeorm-ts-node-esm",
+        "seed": "npm run orm migration:run -- -d ./src/data-source.ts"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
         "@apollo/server": "^4.11.0",
+        "apollo-server": "^3.13.0",
+        "class-validator": "^0.14.1",
         "graphql": "^16.9.0",
         "graphql-scalars": "^1.23.0",
         "mysql": "^2.18.1",

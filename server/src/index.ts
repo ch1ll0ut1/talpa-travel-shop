@@ -1,20 +1,24 @@
-import { AppDataSource } from "./data-source.js"
-import { Product } from "./entity/Product.js"
+import { ApolloServer } from "apollo-server";
+import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
+import { buildSchema } from "type-graphql";
+import { AppDataSource } from "./data-source.js";
+import { ProductResolver } from "./resolvers/Products.js";
 
-AppDataSource.initialize().then(async () => {
+async function startApolloServer() {
+    const schema = await buildSchema({
+        resolvers: [ProductResolver],
+      });
 
-    console.log("Inserting a new product into the database...")
-    const product = new Product()
-    product.firstName = "Timber"
-    product.lastName = "Saw"
-    product.age = 25
-    await AppDataSource.manager.save(product)
-    console.log("Saved a new product with id: " + product.id)
+    const server = new ApolloServer({
+        schema,
+        csrfPrevention: true,
+        cache: 'bounded',
+        plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
+    });
+    
+    const { url } = await server.listen();
+    console.log(`🚀 Server ready at ${url}`);
+}
 
-    console.log("Loading products from the database...")
-    const products = await AppDataSource.manager.find(Product)
-    console.log("Loaded products: ", products)
-
-    console.log("Here you can setup and run express / fastify / any other framework.")
-
-}).catch(error => console.log(error))
+await AppDataSource.initialize();
+await startApolloServer();
