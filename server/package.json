@@ -1,27 +1,29 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@apollo/server": "^4.11.0",
-    "graphql": "^16.9.0",
-    "graphql-scalars": "^1.23.0",
-    "mysql": "^2.18.1",
-    "reflect-metadata": "^0.2.2",
-    "type-graphql": "^2.0.0-rc.2",
-    "typeorm": "^0.3.20"
-  },
-  "devDependencies": {
-    "@types/node": "^22.5.4",
-    "typescript": "^5.5.4"
-  }
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "build": "tsc",
+        "start": "node --loader ts-node/esm src/index.ts",
+        "orm": "typeorm-ts-node-esm"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@apollo/server": "^4.11.0",
+        "graphql": "^16.9.0",
+        "graphql-scalars": "^1.23.0",
+        "mysql": "^2.18.1",
+        "reflect-metadata": "^0.2.2",
+        "type-graphql": "^2.0.0-rc.2",
+        "typeorm": "^0.3.20"
+    },
+    "devDependencies": {
+        "@types/node": "^22.5.4",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4"
+    }
 }
