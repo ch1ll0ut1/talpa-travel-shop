@@ -96,12 +96,18 @@ export const useProductStore = defineStore('products', () => {
         }]
     }
 
+    function createProduct(product: Omit<Product, 'id'>) {
+        products.value.push({ ...product, id: products.value.length + 1 });
+    }
+
     const categoryOptions = computed(() => getFilterOptions(products.value, 'category'));
     const dateOptions = computed(() => getFilterOptions(products.value, 'date'));
 
-    const getProduct = (id: number) => products.value.find(p => p.id === id);
+    function getProduct (id: number) {
+        return products.value.find(p => p.id === id)
+    };
 
-    const setExcludeCategories = (categories: string[]) => {
+    function setExcludeCategories (categories: string[]) {
         excludeCategories.value = categories;
     }
 
@@ -117,6 +123,7 @@ export const useProductStore = defineStore('products', () => {
         resetFilters,
         setExcludeCategories,
         excludedProducts,
+        createProduct,
     };
 });
 

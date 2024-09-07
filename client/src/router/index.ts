@@ -4,6 +4,7 @@ import ProductView from '../views/ProductView.vue'
 import AdminLoginView from '../views/AdminLoginView.vue'
 import AdminOrdersView from '../views/AdminOrdersView.vue'
 import { useAuthStore } from '@/stores/auth'
+import AdminNewProduct from '@/views/AdminNewProduct.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,7 +33,15 @@ const router = createRouter({
             meta: {
                 requiresAuth: true,
             },
-        }
+        },
+        {
+            path: '/products/new',
+            name: 'new-product',
+            component: AdminNewProduct,
+            meta: {
+                requiresAuth: true,
+            },
+        },
     ],
 })
 
