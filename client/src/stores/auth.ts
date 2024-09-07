@@ -21,10 +21,16 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
+    function logout() {
+        isAuthenticated.value = false;
+        user.value = null;
+    }
+
     return {
         isAuthenticated,
         user,
         login,
+        logout,
     };
 }, {
     persist: true,
