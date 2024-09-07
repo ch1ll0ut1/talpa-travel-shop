@@ -2,6 +2,9 @@
 import { useProductStore, type Product } from '@/stores/products';
 import { useBasketStore } from '@/stores/basket';
 import ProductBasket from './ProductBasket.vue';
+import ProductFilter from './ProductFilter.vue';
+import ProductList from './ProductList.vue';
+import ProductItem from './ProductItem.vue';
 
 const { productId } = defineProps<{ productId: Product['id'] }>()
 
@@ -9,24 +12,40 @@ const products = useProductStore();
 const basket = useBasketStore();
 
 products.loadProducts();
+products.resetFilters();
 
 const product = products.getProduct(productId);
 
+if (product) {
+    products.setExcludeCategories([product.category]);
+    products.dateFilter = product.date || 'all';
+}
 </script>
 
 <template>
     <div class="layout" v-if="product">
-        <div class="product">
-            <img :src="product.image" :alt="product.name" class="item-picture" />
-            <div class="wrapper">
-                <h3>{{ product.name }}</h3>
-                <p>{{ product.description }}</p>
-                <p>Date: {{ product.date }}</p>
-                <p>Location: {{ product.location }}</p>
-                <p>Price: {{ product.price }} EUR</p>
-                <div>
-                    <button @click="basket.addItem(productId)">Add to Cart</button>
-                </div>
+        <div class="main">
+            <ProductItem :productId="product.id">
+                <template #actions>
+                    <button @click="basket.addItem(product)" v-if="!basket.isProductInBasket(product)">
+                        Add to Cart
+                    </button>
+                </template>
+            </ProductItem>
+            <div class="bundle">
+                <h2 class="text-3xl font-bold text-center">Create bundle by adding one of the following products</h2>
+                <ProductFilter
+                    :excludeCategory="product.category"
+                    v-model:categoryFilter="products.categoryFilter"
+                    :categoryOptions="products.categoryOptions"
+                />
+                <ProductList
+                    :products="products.filteredProducts"
+                >
+                    <template #actions="props">
+                        <button @click="basket.addBundleItem(product, props.product)">Add to Cart</button>
+                    </template>
+                </ProductList>
             </div>
         </div>
         <ProductBasket />
@@ -48,6 +67,7 @@ const product = products.getProduct(productId);
     flex-direction: column;
     align-items: left;
     padding: 10px;
+    min-width: 500px;
 }
 
 .item-picture {

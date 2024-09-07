@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useProductStore, type Product } from '@/stores/products';
+const store = useProductStore();
 
 const { productId } = defineProps<{ productId: Product['id'] }>()
-const store = useProductStore();
 
 const product = store.getProduct(productId);
 </script>
@@ -15,7 +15,8 @@ const product = store.getProduct(productId);
             <p>{{ product.description }}</p>
             <p>{{ product.date }} | {{ product.location }} | {{ product.price }} EUR</p>
         </div>
-        <slot name="actions"></slot>
+        <slot name="actions" :product="product"></slot>
+        <slot name="details" :product="product"></slot>
     </div>
 </template>
 
@@ -30,7 +31,6 @@ const product = store.getProduct(productId);
 
 .product:hover {
     background-color: #f9f9f9;
-    cursor: pointer;
 }
 
 .item-picture {

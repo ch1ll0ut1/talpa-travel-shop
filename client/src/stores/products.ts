@@ -1,5 +1,5 @@
-import { ref, computed, reactive } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import { computed, ref } from 'vue';
 
 export interface Product {
     id: number;
@@ -16,11 +16,27 @@ export const useProductStore = defineStore('products', () => {
     const products = ref<Product[]>([]);
     const categoryFilter = ref('all');
     const dateFilter = ref('all');
+    const excludeCategories = ref<string[]>([]);
+    const excludedProducts = ref<Product[]>([]);
 
     const filteredProducts = computed(() => products.value.filter(p => {
+        if (excludeCategories.value.includes(p.category)) {
+            return false;
+        }
+
+        if (excludedProducts.value.includes(p)) {
+            return false;
+        }
+
         return (categoryFilter.value === 'all' || p.category === categoryFilter.value) &&
             (dateFilter.value === 'all' || p.date === dateFilter.value);
     }));
+
+    function resetFilters() {
+        categoryFilter.value = 'all';
+        dateFilter.value = 'all';
+        excludeCategories.value = [];
+    }
 
     async function loadProducts() {
         products.value = [{
@@ -85,6 +101,10 @@ export const useProductStore = defineStore('products', () => {
 
     const getProduct = (id: number) => products.value.find(p => p.id === id);
 
+    const setExcludeCategories = (categories: string[]) => {
+        excludeCategories.value = categories;
+    }
+
     return {
         products,
         filteredProducts,
@@ -94,6 +114,9 @@ export const useProductStore = defineStore('products', () => {
         categoryOptions,
         dateOptions,
         getProduct,
+        resetFilters,
+        setExcludeCategories,
+        excludedProducts,
     };
 });
 

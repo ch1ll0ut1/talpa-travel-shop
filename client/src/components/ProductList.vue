@@ -1,48 +1,27 @@
 <script setup lang="ts">
 import type { Product } from '@/stores/products';
+import ProductItem from './ProductItem.vue';
 
-const { products } = defineProps<{ products: Product[] }>()
+const { products, enableDetailLink } = defineProps<{
+    products: Product[],
+    enableDetailLink?: boolean,
+}>()
 </script>
 
 <template>
     <div class="product-list">
         <div class="product" v-for="product in products" :key="product.id">
-            <router-link :to="{ name: 'product', params: { id: product.id } }">
-                <img :src="product.image" :alt="product.name" class="item-picture" />
-                <div class="wrapper">
-                    <h3>{{ product.name }}</h3>
-                    <p>{{ product.description }}</p>
-                    <p>{{ product.date }} | {{ product.location }} | {{ product.price }} EUR</p>
-                </div>
-            </router-link>
+            <ProductItem :productId="product.id">
+                <template #actions>
+                    <router-link :to="{ name: 'product', params: { id: product.id } }" v-if="enableDetailLink">
+                        Details
+                    </router-link>
+                    <slot name="actions" :product="product"></slot>
+                </template>
+            </ProductItem>
         </div>
     </div>
 </template>
 
 <style scoped>
-.product > a {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    color: var(--color-text);
-}
-
-.product:hover {
-    background-color: #f9f9f9;
-    cursor: pointer;
-}
-
-.item-picture {
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.product > a .wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 </style>

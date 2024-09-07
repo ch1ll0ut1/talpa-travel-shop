@@ -6,6 +6,7 @@ import ProductList from './ProductList.vue'
 const store = useProductStore();
 
 store.loadProducts();
+store.resetFilters();
 
 </script>
 
@@ -19,5 +20,6 @@ store.loadProducts();
     />
     <ProductList
         :products="store.filteredProducts"
+        :enableDetailLink="true"
     />
 </template>
