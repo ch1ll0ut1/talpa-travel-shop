@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"name": "root",
+			"path": "."
+		},
+		{
+			"name": "client",
+			"path": "client",
+		},
+		{
+			"name": "server",
+			"path": "server"
+		}
+	],
+	"settings": {
+		"jest.disabledWorkspaceFolders": [
+			"root",
+		],
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "typescript.enablePromptUseWorkspaceTsdk": true
+	}
+}
