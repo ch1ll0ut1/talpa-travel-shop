@@ -1,5 +1,4 @@
-import { Length, Max, MaxLength, Min } from "class-validator";
-import { Arg, Args, ArgsType, Ctx, Field, InputType, Int, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Args, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { NewProductInput, Product, ProductsArgs } from "../entity/Product.js";
 import { User } from "../entity/User.js";
 

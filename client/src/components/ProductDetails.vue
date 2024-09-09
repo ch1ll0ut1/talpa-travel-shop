@@ -11,7 +11,6 @@ const { productId } = defineProps<{ productId: Product['id'] }>()
 const products = useProductStore();
 const basket = useBasketStore();
 
-products.loadProducts();
 products.resetFilters();
 
 const product = products.getProduct(productId);
@@ -34,14 +33,9 @@ if (product) {
             </ProductItem>
             <div class="bundle">
                 <h2 class="text-3xl font-bold text-center">Create bundle by adding one of the following products</h2>
-                <ProductFilter
-                    :excludeCategory="product.category"
-                    v-model:categoryFilter="products.categoryFilter"
-                    :categoryOptions="products.categoryOptions"
-                />
-                <ProductList
-                    :products="products.filteredProducts"
-                >
+                <ProductFilter :excludeCategory="product.category" v-model:categoryFilter="products.categoryFilter"
+                    :categoryOptions="products.categoryOptions" />
+                <ProductList :products="products.filteredProducts">
                     <template #actions="props">
                         <button @click="basket.addBundleItem(product, props.product)">Add to Cart</button>
                     </template>

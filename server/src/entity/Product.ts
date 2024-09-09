@@ -5,7 +5,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
 @Entity()
 @ObjectType()
 export class Product extends BaseEntity {
-    @Field(type => ID)
+    @Field()
     @PrimaryGeneratedColumn()
     id: number;
 
