@@ -8,7 +8,8 @@
         "build": "tsc",
         "start": "node --loader ts-node/esm src/index.ts",
         "orm": "typeorm-ts-node-esm",
-        "seed": "npm run orm migration:run -- -d ./src/data-source.ts"
+        "db:seed": "npm run orm schema:sync -- -d ./src/data-source.ts && npm run orm migration:run -- -d ./src/data-source.ts",
+        "db:drop": "npm run orm schema:drop -- -d ./src/data-source.ts"
     },
     "keywords": [],
     "author": "",
