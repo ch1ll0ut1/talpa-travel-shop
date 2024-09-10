@@ -1,9 +1,9 @@
-# talpa-travel-shop
+# vue frontend
 
 ## Notes to certain decisions made here during development
 
 - Not using code splitting on purpose because its a tiny app at this point
-- 
+-
 
 ## Recommended IDE Setup
 
@@ -22,6 +22,11 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ```sh
 npm install
 ```
+
+### Generate API definitions from backend
+
+1. Run server via `cd ../server && npm start`
+2. Start api generator in client folder with `npm run api:watch`
 
 ### Compile and Hot-Reload for Development
 
