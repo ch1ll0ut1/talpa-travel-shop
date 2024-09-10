@@ -1,8 +1,7 @@
-import { Arg, Args, FieldResolver, Mutation, Query, Resolver, Root } from "type-graphql";
-import { NewOrderInput, Order, OrdersArgs } from "../entity/Order.js";
-import { NewOrderItemInput, OrderItem } from "../entity/OrderItem.js";
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from "type-graphql";
 import { IsNull } from "typeorm";
-import { Product } from "../entity/Product.js";
+import { OrdersArgs } from "../entity/Order.js";
+import { OrderItem } from "../entity/OrderItem.js";
 
 @Resolver(OrderItem)
 export class OrderItemResolver {

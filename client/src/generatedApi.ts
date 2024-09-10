@@ -59,8 +59,8 @@ export type NewProductInput = {
   description: Scalars['String']['input'];
   image: Scalars['String']['input'];
   location: Scalars['String']['input'];
+  name: Scalars['String']['input'];
   price: Scalars['Float']['input'];
-  title: Scalars['String']['input'];
 };
 
 export type Order = {

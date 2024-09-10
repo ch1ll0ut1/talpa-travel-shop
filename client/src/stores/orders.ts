@@ -43,7 +43,7 @@ export const useOrderStore = defineStore('orders', () => {
 
     const orders = computed(() => result.value?.orders ?? []);
 
-    const { mutate: submitOrder } = useMutation<{ orders: Order[] }>(gql`
+    const { mutate: submitOrder } = useMutation(gql`
         mutation addOrder($newOrderData: NewOrderInput!) {
             addOrder(newOrderData: $newOrderData) {
                 firstName

@@ -1,5 +1,5 @@
 import type { Product } from '@/generatedApi';
-import { useQuery } from '@vue/apollo-composable';
+import { useMutation, useQuery } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
@@ -10,7 +10,7 @@ export const useProductStore = defineStore('products', () => {
     const excludeCategories = ref<string[]>([]);
     const excludedProducts = ref<Product[]>([]);
 
-    const { result } = useQuery<{ products: Product[] }>(
+    const { result, refetch } = useQuery<{ products: Product[] }>(
         gql`
             query allProducts {
                 products {
@@ -48,10 +48,6 @@ export const useProductStore = defineStore('products', () => {
         excludeCategories.value = [];
     }
 
-    function createProduct(product: Omit<Product, 'id'>) {
-        products.value.push({ ...product, id: products.value.length + 1 });
-    }
-
     const categoryOptions = computed(() => getFilterOptions(products.value, 'category'));
     const dateOptions = computed(() => getFilterOptions(products.value, 'date'));
 
@@ -61,6 +57,29 @@ export const useProductStore = defineStore('products', () => {
 
     function setExcludeCategories(categories: string[]) {
         excludeCategories.value = categories;
+    }
+
+    const { mutate: submitProduct } = useMutation(gql`
+        mutation addProduct($newProductData: NewProductInput!) {
+            addProduct(newProductData: $newProductData) {
+                id
+                price
+                name
+                description
+                location
+                image
+                category
+                date
+            }
+        }
+    `);
+
+    async function addProduct(product: Omit<Product, 'id'>) {
+        await submitProduct({
+            newProductData: product
+        });
+        
+        refetch();
     }
 
     return {
@@ -74,7 +93,7 @@ export const useProductStore = defineStore('products', () => {
         resetFilters,
         setExcludeCategories,
         excludedProducts,
-        createProduct,
+        addProduct,
     };
 });
 

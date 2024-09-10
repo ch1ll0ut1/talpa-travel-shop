@@ -26,7 +26,7 @@ export class ProductResolver {
         @Arg("newProductData") newProductData: NewProductInput,
         @Ctx("user") user: User,
     ): Promise<Product> {
-        const product = Product.create(newProductData);
+        const product = Product.create(newProductData as any); // NOTE: This is a workaround for a TypeScript bug
         return await product.save();
     }
 

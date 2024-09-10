@@ -1,6 +1,6 @@
-import { MaxLength, Length, Min, Max } from "class-validator";
-import { ArgsType, Field, ID, InputType, Int, ObjectType } from "type-graphql"
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
+import { Max, Min } from "class-validator";
+import { ArgsType, Field, InputType, Int, ObjectType } from "type-graphql";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 @ObjectType()
@@ -44,15 +44,13 @@ export class Product extends BaseEntity {
 @InputType()
 export class NewProductInput {
     @Field()
-    @MaxLength(30)
-    title: string;
+    price: number;
 
     @Field()
-    @Length(30, 255)
-    description: string;
-    
+    name: string;
+
     @Field()
-    price: number;
+    description: string;
     
     @Field()
     location: string;

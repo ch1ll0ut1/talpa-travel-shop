@@ -17,7 +17,7 @@ const product = ref<Omit<Product, 'id'>>({
 });
 
 function submitProduct() {
-    products.createProduct(product.value);
+    products.addProduct(product.value);
     router.push('/');
 }
 
