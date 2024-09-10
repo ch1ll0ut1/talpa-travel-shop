@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useProductStore, type Product } from '@/stores/products';
+import { useProductStore } from '@/stores/products';
 import { useBasketStore } from '@/stores/basket';
 import ProductBasket from './ProductBasket.vue';
 import ProductFilter from './ProductFilter.vue';
 import ProductList from './ProductList.vue';
 import ProductItem from './ProductItem.vue';
+import type { Product } from '@/api';
 
 const { productId } = defineProps<{ productId: Product['id'] }>()
 

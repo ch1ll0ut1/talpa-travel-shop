@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useProductStore, type Product } from '@/stores/products';
+import type { Product } from '@/api';
+import { useProductStore } from '@/stores/products';
 const store = useProductStore();
 
 const { productId } = defineProps<{ productId: Product['id'] }>()

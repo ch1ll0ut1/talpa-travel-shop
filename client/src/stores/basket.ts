@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { useProductStore, type Product } from './products';
+import { useProductStore } from './products';
+import type { Product } from '@/api';
 
 let nextId = 0;
 
