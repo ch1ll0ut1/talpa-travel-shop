@@ -17,8 +17,14 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addOrder: Order;
   addProduct: Product;
   removeProduct: Scalars['Boolean']['output'];
+};
+
+
+export type MutationAddOrderArgs = {
+  newOrderData: NewOrderInput;
 };
 
 
@@ -31,6 +37,16 @@ export type MutationRemoveProductArgs = {
   id: Scalars['Float']['input'];
 };
 
+export type NewOrderInput = {
+  category: Scalars['String']['input'];
+  date: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  image: Scalars['String']['input'];
+  location: Scalars['String']['input'];
+  price: Scalars['Float']['input'];
+  title: Scalars['String']['input'];
+};
+
 export type NewProductInput = {
   category: Scalars['String']['input'];
   date: Scalars['String']['input'];
@@ -39,6 +55,24 @@ export type NewProductInput = {
   location: Scalars['String']['input'];
   price: Scalars['Float']['input'];
   title: Scalars['String']['input'];
+};
+
+export type Order = {
+  __typename?: 'Order';
+  date: Scalars['String']['output'];
+  firstName: Scalars['String']['output'];
+  id: Scalars['Float']['output'];
+  items: Array<OrderItem>;
+  lastName: Scalars['String']['output'];
+};
+
+export type OrderItem = {
+  __typename?: 'OrderItem';
+  bundleItems: Array<OrderItem>;
+  id: Scalars['Float']['output'];
+  order: Order;
+  parentOrderItem: OrderItem;
+  product: Product;
 };
 
 export type Product = {
@@ -55,8 +89,21 @@ export type Product = {
 
 export type Query = {
   __typename?: 'Query';
+  order: Order;
+  orders: Array<Order>;
   product: Product;
   products: Array<Product>;
+};
+
+
+export type QueryOrderArgs = {
+  id: Scalars['Float']['input'];
+};
+
+
+export type QueryOrdersArgs = {
+  skip?: Scalars['Int']['input'];
+  take?: Scalars['Int']['input'];
 };
 
 

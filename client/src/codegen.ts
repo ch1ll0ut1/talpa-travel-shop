@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   documents: ['src/**/*.vue'],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
-    './src/api.ts': {
+    './src/generatedApi.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-vue-apollo'],
       config: {
         withCompositionFunctions: true
