@@ -1,6 +1,7 @@
 import { Max, Min } from "class-validator";
 import { ArgsType, Field, InputType, Int, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Relation } from "typeorm";
+import { OrderItem } from "./OrderItem.js";
 
 @Entity()
 @ObjectType()
@@ -8,6 +9,10 @@ export class Product extends BaseEntity {
     @Field()
     @PrimaryGeneratedColumn()
     id: number;
+
+    @Field()
+    @Column({ default: false, select: false })
+    softDelete: boolean;
 
     @Field()
     @Column()

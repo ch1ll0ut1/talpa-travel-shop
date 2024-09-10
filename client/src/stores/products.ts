@@ -82,6 +82,18 @@ export const useProductStore = defineStore('products', () => {
         refetch();
     }
 
+    const { mutate: submitRemovedProduct } = useMutation(gql`
+        mutation removeProduct($id: Float!) {
+            removeProduct(id: $id)
+        }
+    `);
+
+    async function deleteProduct(product: Product) {
+        await submitRemovedProduct({ id: product.id});
+
+        refetch();
+    }
+
     return {
         products,
         filteredProducts,
@@ -94,6 +106,7 @@ export const useProductStore = defineStore('products', () => {
         setExcludeCategories,
         excludedProducts,
         addProduct,
+        deleteProduct,
     };
 });
 

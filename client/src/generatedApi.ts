@@ -93,6 +93,7 @@ export type Product = {
   location: Scalars['String']['output'];
   name: Scalars['String']['output'];
   price: Scalars['Float']['output'];
+  softDelete: Scalars['Boolean']['output'];
 };
 
 export type Query = {

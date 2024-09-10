@@ -6,7 +6,7 @@ import { User } from "../entity/User.js";
 export class ProductResolver {
     @Query(returns => Product)
     async product(@Arg("id") id: number) {
-        const product = await Product.findOneBy({ id });
+        const product = await Product.findOneBy({ id, softDelete: false });
 
         if (product === undefined) {
             throw new Error(`Product with id ${id} not found`);
@@ -17,7 +17,7 @@ export class ProductResolver {
 
     @Query(returns => [Product])
     products(@Args() { skip, take }: ProductsArgs) {
-        return Product.find({ skip, take });
+        return Product.find({ skip, take, where: { softDelete: false } });
     }
 
     @Mutation(returns => Product)
@@ -34,9 +34,10 @@ export class ProductResolver {
     //   @Authorized(Roles.Admin)
     async removeProduct(@Arg("id") id: number) {
         try {
-            await Product.delete(id);
+            await Product.update(id, { softDelete: true });
             return true;
-        } catch {
+        } catch(error) {
+            console.error(error);
             return false;
         }
     }

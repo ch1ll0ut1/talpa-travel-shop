@@ -18,5 +18,9 @@ store.resetFilters();
     </div>
     <ProductFilter :categoryOptions="store.categoryOptions" :dateOptions="store.dateOptions"
         v-model:categoryFilter="store.categoryFilter" v-model:dateFilter="store.dateFilter" />
-    <ProductList :products="store.filteredProducts" :enableDetailLink="true" />
+    <ProductList :products="store.filteredProducts" :enableDetailLink="true" :enableDelete="true">
+        <template #actions="{ product }" v-if="auth.isAuthenticated">
+            <button @click="store.deleteProduct(product)" class="btn btn-danger">Delete</button>
+        </template>
+    </ProductList>
 </template>

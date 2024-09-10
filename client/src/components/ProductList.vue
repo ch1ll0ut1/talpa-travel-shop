@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { Product } from '@/stores/products';
+import type { Product } from '@/generatedApi';
 import ProductItem from './ProductItem.vue';
 
 const { products, enableDetailLink } = defineProps<{
     products: Product[],
     enableDetailLink?: boolean,
+    enableDelete?: boolean,
 }>()
 </script>
 
@@ -23,5 +24,4 @@ const { products, enableDetailLink } = defineProps<{
     </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
