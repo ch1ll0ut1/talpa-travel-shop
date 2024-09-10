@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  DateTimeISO: { input: any; output: any; }
 };
 
 export type Mutation = {
@@ -37,14 +38,19 @@ export type MutationRemoveProductArgs = {
   id: Scalars['Float']['input'];
 };
 
+export type NestedOrderItemInput = {
+  productId: Scalars['Float']['input'];
+};
+
 export type NewOrderInput = {
-  category: Scalars['String']['input'];
-  date: Scalars['String']['input'];
-  description: Scalars['String']['input'];
-  image: Scalars['String']['input'];
-  location: Scalars['String']['input'];
-  price: Scalars['Float']['input'];
-  title: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  items: Array<NewOrderItemInput>;
+  lastName: Scalars['String']['input'];
+};
+
+export type NewOrderItemInput = {
+  bundleItems: Array<NestedOrderItemInput>;
+  productId: Scalars['Float']['input'];
 };
 
 export type NewProductInput = {
@@ -59,7 +65,7 @@ export type NewProductInput = {
 
 export type Order = {
   __typename?: 'Order';
-  date: Scalars['String']['output'];
+  date: Scalars['DateTimeISO']['output'];
   firstName: Scalars['String']['output'];
   id: Scalars['Float']['output'];
   items: Array<OrderItem>;
@@ -71,8 +77,10 @@ export type OrderItem = {
   bundleItems: Array<OrderItem>;
   id: Scalars['Float']['output'];
   order: Order;
+  orderId: Scalars['Float']['output'];
   parentOrderItem: OrderItem;
   product: Product;
+  productId: Scalars['Float']['output'];
 };
 
 export type Product = {
@@ -90,6 +98,8 @@ export type Product = {
 export type Query = {
   __typename?: 'Query';
   order: Order;
+  orderItem: OrderItem;
+  orderItems: Array<OrderItem>;
   orders: Array<Order>;
   product: Product;
   products: Array<Product>;
@@ -98,6 +108,17 @@ export type Query = {
 
 export type QueryOrderArgs = {
   id: Scalars['Float']['input'];
+};
+
+
+export type QueryOrderItemArgs = {
+  id: Scalars['Float']['input'];
+};
+
+
+export type QueryOrderItemsArgs = {
+  skip?: Scalars['Int']['input'];
+  take?: Scalars['Int']['input'];
 };
 
 

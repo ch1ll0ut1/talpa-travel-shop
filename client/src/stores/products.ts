@@ -1,4 +1,4 @@
-import type { Product } from '@/api';
+import type { Product } from '@/generatedApi';
 import { useQuery } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import { defineStore } from 'pinia';

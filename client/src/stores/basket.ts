@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useProductStore } from './products';
-import type { Product } from '@/api';
+import type { Product } from '@/generatedApi';
 
 let nextId = 0;
 
@@ -62,6 +62,11 @@ export const useBasketStore = defineStore('basket', () => {
         return items.value.some((item) => item.product.id === product.id);
     }
 
+    function clear() {
+        items.value = [];
+        productStore.excludedProducts = [];
+    }
+
     return {
         items,
         addItem,
@@ -69,5 +74,6 @@ export const useBasketStore = defineStore('basket', () => {
         addBundleItem,
         removeBundleItem,
         isProductInBasket,
+        clear,
     };
 });

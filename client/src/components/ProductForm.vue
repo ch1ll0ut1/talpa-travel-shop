@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Product } from '@/api';
+import type { Product } from '@/generatedApi';
 import router from '@/router';
 import { useProductStore } from '@/stores/products';
 import { ref } from 'vue';

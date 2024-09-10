@@ -27,7 +27,7 @@ export class ProductResolver {
         @Ctx("user") user: User,
     ): Promise<Product> {
         const product = Product.create(newProductData);
-        return await product[0].save();
+        return await product.save();
     }
 
     @Mutation(returns => Boolean)

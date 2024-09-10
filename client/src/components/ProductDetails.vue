@@ -5,7 +5,7 @@ import ProductBasket from './ProductBasket.vue';
 import ProductFilter from './ProductFilter.vue';
 import ProductList from './ProductList.vue';
 import ProductItem from './ProductItem.vue';
-import type { Product } from '@/api';
+import type { Product } from '@/generatedApi';
 
 const { productId } = defineProps<{ productId: Product['id'] }>()
 

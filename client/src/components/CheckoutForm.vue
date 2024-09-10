@@ -1,17 +1,25 @@
 <script setup lang="ts">
+import router from '@/router';
 import { useBasketStore } from '@/stores/basket';
+import { useOrderStore } from '@/stores/orders';
 import { ref } from 'vue';
 
 const basket = useBasketStore();
+const orderStore = useOrderStore();
 
 const firstName = ref('');
 const lastName = ref('');
 
 const submitForm = () => {
-    // Handle form submission logic here
-    console.log('First Name:', firstName.value);
-    console.log('Last Name:', lastName.value);
-    console.log('basket', basket.items);
+    orderStore.addOrder(
+        basket.items,
+        firstName.value,
+        lastName.value,
+    );
+
+    basket.clear();
+
+    router.push('/thank-you');
 };
 
 </script>

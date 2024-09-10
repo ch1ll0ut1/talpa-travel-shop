@@ -1,24 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useOrderStore } from '@/stores/orders';
 
-const orders = ref([
-    {
-        id: 1,
-        date: '2022-01-01',
-        firstName: 'John',
-        lastName: 'Doe',
-        products: [{
-            id: 1,
-            name: 'Product 1',
-            price: 100,
-            bundledProducts: [{
-                id: 2,
-                name: 'Product 2',
-                price: 200,
-            }],
-        }],
-    },
-]);
+const orderStore = useOrderStore();
 
 </script>
 
@@ -34,18 +17,18 @@ const orders = ref([
             </tr>
         </thead>
         <tbody>
-            <tr v-for="order in orders" :key="order.id">
+            <tr v-for="order in orderStore.orders" :key="order.id">
                 <td>{{ order.id }}</td>
-                <td>{{ order.date }}</td>
+                <td>{{ (new Date(order.date)).toLocaleDateString() }}</td>
                 <td>{{ order.firstName }}</td>
                 <td>{{ order.lastName }}</td>
                 <td>
                     <ul>
-                        <li v-for="product in order.products" :key="product.id">
-                            {{ product.name }} - ${{ product.price }}
-                            <ul v-if="product.bundledProducts">
-                                <li v-for="bundleProduct in product.bundledProducts" :key="bundleProduct.id">
-                                    {{ bundleProduct.name }} - ${{ bundleProduct.price }}
+                        <li v-for="item in order.items" :key="item.id">
+                            {{ item.product.name }} - ${{ item.product.price }}
+                            <ul v-if="item.bundleItems">
+                                <li v-for="bundle in item.bundleItems" :key="bundle.product.id">
+                                    {{ bundle.product.name }} - ${{ bundle.product.price }}
                                 </li>
                             </ul>
                         </li>
