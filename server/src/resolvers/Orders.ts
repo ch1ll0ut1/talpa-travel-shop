@@ -25,15 +25,12 @@ export class OrderResolver {
     async addOrder(
         @Arg("newOrderData") newOrderData: NewOrderInput,
     ): Promise<Order> {
-        console.log('newOrderData', newOrderData);
         let order = Order.create(newOrderData as any); // NOTE: This is a workaround for a TypeScript bug
-        console.log('order', order);
         return await order.save();
     }
 
     @FieldResolver()
     async items(@Root() order: Order) {
-        console.log('order.items', order)
         return OrderItem.find({ where: { orderId: order.id, parentOrderItem: IsNull() } });
     }
 }

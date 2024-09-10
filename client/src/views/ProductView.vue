@@ -2,7 +2,6 @@
 import ProductDetails from '../components/ProductDetails.vue'
 
 const props = defineProps<{ id: string }>()
-
 </script>
 
 <template>

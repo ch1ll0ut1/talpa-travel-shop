@@ -19,12 +19,12 @@ app.use(router)
 
 // Setup Graphql client
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000',
+  uri: 'http://localhost:4000'
 })
 const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
   link: httpLink,
-  cache,
+  cache
 })
 app.provide(DefaultApolloClient, apolloClient)
 
