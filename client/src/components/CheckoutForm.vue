@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useBasketStore } from '@/stores/basket';
 import { ref } from 'vue';
+
+const basket = useBasketStore();
 
 const firstName = ref('');
 const lastName = ref('');
@@ -8,6 +11,7 @@ const submitForm = () => {
     // Handle form submission logic here
     console.log('First Name:', firstName.value);
     console.log('Last Name:', lastName.value);
+    console.log('basket', basket.items);
 };
 
 </script>

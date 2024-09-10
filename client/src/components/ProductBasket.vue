@@ -3,6 +3,10 @@ import ProductItem from './ProductItem.vue';
 import { useBasketStore } from '@/stores/basket';
 import ProductList from './ProductList.vue';
 
+const props = defineProps<{
+    disableCheckout?: boolean;
+}>();
+
 const basket = useBasketStore();
 </script>
 
@@ -25,6 +29,9 @@ const basket = useBasketStore();
                 </ProductItem>
             </li>
         </ul>
+        <button v-if="!props.disableCheckout" @click="$router.push('/checkout')">
+            Checkout
+        </button>
     </div>
 </template>
 
