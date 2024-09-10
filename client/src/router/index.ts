@@ -6,6 +6,7 @@ import AdminOrdersView from '../views/AdminOrdersView.vue'
 import { useAuthStore } from '@/stores/auth'
 import AdminNewProduct from '@/views/AdminNewProduct.vue'
 import CheckoutView from '@/views/CheckoutView.vue'
+import ThankYouView from '@/views/ThankYouView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,6 +49,11 @@ const router = createRouter({
             name: 'checkout',
             component: CheckoutView,
         },
+        {
+            path: '/thank-you',
+            name: 'thank-you',
+            component: ThankYouView,
+        }
     ],
 })
 
